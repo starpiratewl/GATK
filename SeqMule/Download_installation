@@ -1,3 +1,20 @@
+in linux terminal when we in root, we can use exit command to exit the root. but sometimes it showed "there are stopped jobs".
+
+use jobs command to see what are the stopped jobs 
+
+use jobs -l command to find the number
+
+use kill number command to kill the jobs 
+
+then we can exit.
+
+The reason of this problem is that we use Ctrl+Z or C to cause some jobs are hung
+
+
+
+
+
+
 ###########################
 ## install perl
 ###########################
