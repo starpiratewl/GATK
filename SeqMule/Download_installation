@@ -12,7 +12,9 @@ The reason of this problem is that we use Ctrl+Z or C to cause some jobs are hun
 
 
 
-
+###########################
+## Prerequisites
+###########################
 
 
 ###########################
@@ -166,3 +168,79 @@ Loading mirror speeds from cached hostfile
  * updates: centos.ustc.edu.cn
 Package 1:java-1.8.0-openjdk-1.8.0.171-8.b10.el7_5.x86_64 already installed and latest version
 Nothing to do
+
+
+###########################
+## install SeqMule
+###########################
+
+[wangliang@localhost ~]$ git clone https://github.com/WGLab/SeqMule.git
+Cloning into 'SeqMule'...
+remote: Counting objects: 4341, done.
+remote: Total 4341 (delta 0), reused 0 (delta 0), pack-reused 4341
+Receiving objects: 100% (4341/4341), 25.40 MiB | 60.00 KiB/s, done.
+Resolving deltas: 100% (2753/2753), done.
+
+cd SeqMule
+./Build freshinstall
+
+## wait for a long time
+
+./Build installexes
+
+
+## pop out notification that missing gatk and soapsnp
+
+[wangliang@localhost SeqMule]$ ./Build gatk
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+CAUTION: SeqMule cannot automatically install GATK due to license limitations.
+Please download, unpack it and copy GenomeAnalysisTK.jar to /home/wangliang/SeqMule/exe/gatk
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+[wangliang@localhost SeqMule]$ ./Build soapsnp
+
+...
+...
+FINISHED --2018-05-24 22:31:04--
+Total wall clock time: 0.8s
+Downloaded: 1 files, 13K in 0.3s (45.5 KB/s)
+Unpacking msort archive...
+Configuring msort...
+g++ -c -o msort.o msort.c -I. -g -O2 -Wall -W -m64 -m64 -lm
+msort.c: In function ‘int main(int, char**)’:
+msort.c:496:6: warning: variable ‘memlimit’ set but not used [-Wunused-but-set-variable]
+  int memlimit;
+      ^
+g++ -c -o sort_funs.o sort_funs.c -I. -g -O2 -Wall -W -m64 -m64 -lm
+In file included from sort_funs.c:1:0:
+msort.h:116:16: warning: ‘file_db’ defined but not used [-Wunused-variable]
+ static file_t *file_db = NULL;
+                ^
+g++    -c -o stdhashc.o stdhashc.cc
+In file included from stdhashc.cc:2:0:
+stdhash.hh: In instantiation of ‘bool hash_map_misc<keytype_t, valtype_t>::insert(const keytype_t&, const valtype_t&) [with keytype_t = unsigned int; valtype_t = int]’:
+stdhashc.cc:72:51:   required from here
+stdhash.hh:496:81: error: ‘direct_insert_aux’ was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+   int ret = direct_insert_aux(key, this->n_capacity, this->keys, this->flags, &i);
+                                                                                 ^
+stdhash.hh:496:81: note: declarations in dependent base ‘__lh3_hash_base_class<unsigned int>’ are not found by unqualified lookup
+stdhash.hh:496:81: note: use ‘this->direct_insert_aux’ instead
+make: *** [stdhashc.o] Error 1
+!!!!!!!!!!!!!!!!!!!!!!!!!
+ERROR: Failed to make msort
+
+## This error has been clearly stated in 
+http://seqmule.openbioinformatics.org/en/latest/Installation/
+
+## we need change to g++ 4.4.X version
+
