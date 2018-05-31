@@ -193,6 +193,7 @@ cd SeqMule
 
 
 ## pop out notification that missing gatk and soapsnp
+## so we need install the two software use ./Build command
 
 [wangliang@localhost SeqMule]$ ./Build gatk
 
@@ -263,7 +264,20 @@ mv /usr/bin/gcc /usr/bin/gcc-4.8.5
 mv /usr/bin/g++ /usr/bin/g++-4.8.5
 mv /usr/bin/c++ /usr/bin/c++-4.8.5
 
+## so far here, change the gcc version in the linux is a little annoying. So I give up the CentOS7 and turn to CentOS6.9
+## where the dufault gcc version is 4.4.7 
 
+## in CentOS6.9, installation of seqmule is much more smooth
+
+## after installation of seqmule, the only thing left is installation of gatk!
+## after installation of seqmule, all software necessary is installed except samtools and gatk
+## use ./Build samtools to install
+## gatk installation can not perform in seqmule, we have to turn to GATK website. see the next part
+
+
+#######################################
+## usefil commands
+#######################################
 ## to check the version of centos
 [root@localhost bin]# cat /etc/centos-release
 CentOS Linux release 7.4.1708 (Core)
@@ -311,6 +325,20 @@ CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
 PATH=$JAVA_HOME/bin:$PATH
 export PATH JAVA_HOME CLASSPATH
 
+## pay attention here, even after we set the environment, we can not use "jave" command automatically,everytime I restart
+## the computer or close the terminal, I have to "source /etc/profile" again to make "jave" usable. TO solve this,
+## following the instructions:
+vi /etc/profile.d/java.sh
+
+## add the following to java.sh file
+#!/bin/bash
+JAVA_HOME=/usr/local/java/jdk1.8.0_171/
+JRE_HOME=/usr/local/java/jdk1.8.0_171/jre
+CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+PATH=$JAVA_HOME/bin:$PATH
+export PATH JAVA_HOME CLASSPATH
+
+
 #######################################
 ## notice for the environment setting
 #######################################
@@ -322,7 +350,61 @@ export PATH JAVA_HOME CLASSPATH
 ## 4. after setting of the profile files, we should "source /etc/profile" or restart the computer.
 
 
+#######################################
+## download the gatk
+#######################################
 
+## download the gatk from https://software.broadinstitute.org/gatk/download/
+## the downloaded file is *.zip
+## unzip the file
+## copy the file system to your ideal director
+## set the environment for gatk
+export PATH=$PATH:/home/liang/GATK/gatk-4.0.4.0/
+
+## test of gatk
+[liang@localhost ~]$ gatk --help
+
+ Usage template for all tools (uses --spark-runner LOCAL when used with a Spark tool)
+    gatk AnyTool toolArgs
+
+ Usage template for Spark tools (will NOT work on non-Spark tools)
+    gatk SparkTool toolArgs  [ -- --spark-runner <LOCAL | SPARK | GCS> sparkArgs ]
+
+ Getting help
+    gatk --list       Print the list of available tools
+
+    gatk Tool --help  Print help on a particular tool
+
+ Configuration File Specification
+     --gatk-config-file                PATH/TO/GATK/PROPERTIES/FILE
+
+ gatk forwards commands to GATK and adds some sugar for submitting spark jobs
+
+   --spark-runner <target>    controls how spark tools are run
+     valid targets are:
+     LOCAL:      run using the in-memory spark runner
+     SPARK:      run using spark-submit on an existing cluster 
+                 --spark-master must be specified
+                 --spark-submit-command may be specified to control the Spark submit command
+                 arguments to spark-submit may optionally be specified after -- 
+     GCS:        run using Google cloud dataproc
+                 commands after the -- will be passed to dataproc
+                 --cluster <your-cluster> must be specified after the --
+                 spark properties and some common spark-submit parameters will be translated 
+                 to dataproc equivalents
+
+   --dry-run      may be specified to output the generated command line without running it
+   --java-options 'OPTION1[ OPTION2=Y ... ]'   optional - pass the given string of options to the 
+                 java JVM at runtime.  
+                 Java options MUST be passed inside a single string with space-separated values.
+
+#######################################
+## finish the installation of seqmule
+#######################################
+
+## after installation of gatk, we have installed all the necessary software
+## set the environment, we can use the seqmule !!
+export PATH=/home/liang/SeqMule/bin:$PATH
 
 
 
