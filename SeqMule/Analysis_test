@@ -1,0 +1,8 @@
+## 1. prepare the databse
+
+## wait for a long time , need a good connection
+seqmule download -down hg19all
+
+##Step 2: Prepare input
+
+Once external databases are downloaded. SeqMule is ready for analysis! This time 
