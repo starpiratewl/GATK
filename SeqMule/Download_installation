@@ -294,7 +294,32 @@ yum remove JAVA-version
 
 
 ## unzip the downloaded file
+mkdir /usr/local/java
+cd /usr/lcoal/java
+cp ../jdk-8u171-linux-x64.tar.gz ./
+tar -zxvf jdk-8u171-linux-x64.tar.gz
+rm jdk-8u171-linux-x64.tar.gz
 
+## set the environment for java
+vim /etc/profile
+
+## add the following to the lcoal profile
+## use source /etc/profile to make the settings valid
+JAVA_HOME=/usr/local/java/jdk1.8.0_171
+JRE_HOME=/usr/local/java/jdk1.8.0_171/jre
+CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+PATH=$JAVA_HOME/bin:$PATH
+export PATH JAVA_HOME CLASSPATH
+
+#######################################
+## notice for the environment setting
+#######################################
+
+## if we have the program waiting for setting in the environment, be attention to following points
+## 1. use "export PATH=/path/../program director/:$PATH" 
+## 2. pay attention that the path should just stop at the program director, we should not set the path to the program
+## 3. do not forget the ":$PATH" at the end of the path, or "export PATH=$PATH:/home/liang/GATK/gatk-4.0.4.0/"
+## 4. after setting of the profile files, we should "source /etc/profile" or restart the computer.
 
 
 
