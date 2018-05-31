@@ -276,3 +276,29 @@ CentOS Linux release 7.4.1708 (Core)
 [root@localhost bin]# getconf LONG_BIT
 64
 
+####################################################################################################
+## installation of GATK
+####################################################################################################
+
+## GATK4 installation need JAVA 1.8
+
+## first we need install JAVA 1.8 in centos 6.9
+## the default JAVA in centos 6.9 is JAVA 1.7, we need uninstall it first
+rpm -qa | grep jdk
+## find the old java version number
+yum remove JAVA-version
+
+## download the JAVA 1.8 from website
+## http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+## remember download the tar.gz version
+
+
+## unzip the downloaded file
+
+
+
+
+
+
+
+
