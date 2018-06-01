@@ -57,8 +57,37 @@ After fixing the problem, please execute 'cd /home/liang/Downloads' and 'seqmule
 ## in the new website, find the JAVA SE 7
 ## in the new website, download the jdk-7u80-linux-x64.tar.gz
 ## download the jdk need oracle account.
+## after downloading , install java1.7, the method is the same as java1.8
+## the director is in /usr/local/java
+## unzip the downloaded file
+## set the /etc/profile and /etc/profile.d/java.sh parameters 
+## then try this:
+[liang@localhost ~]$ java -version
+java version "1.7.0_80"
+Java(TM) SE Runtime Environment (build 1.7.0_80-b15)
+Java HotSpot(TM) 64-Bit Server VM (build 24.80-b11, mixed mode)
 
 
+########################################################
+## after modification of java ,we went on the analysis
+#######################################################
+cd /home/liang/Downloads
+
+seqmule run example.script
+
+## it seems like the analysis process is going on perfectly
+
+
+----------NOTICE----------
+[ => SeqMule Execution Status: Running 20 of 20 steps: Generating html report, at Fri Jun  1 15:50:55 CST 2018, Time Elapsed: 0 hr 17 min 53 s]
+[ => SeqMule Execution Status: step 18 is finished at Fri Jun  1 15:50:55 CST 2018, Generate variant stat]
+
+Assume all results of each individual sample are put in a single folder
+SeqMule reports saved to example_report
+[ => SeqMule Execution Status: All done at Fri Jun  1 15:51:03 CST 2018]
+Total time: 0 hr 18 min 1 s
+
+## it seems like the analysis has been finished. Let's go on with the next step
 
 
 
