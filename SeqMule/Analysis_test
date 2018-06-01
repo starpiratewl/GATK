@@ -1,4 +1,4 @@
-## 1. prepare the databse
+##Step 1: Prepare the databse
 
 ## wait for a long time , need a good connection
 seqmule download -down hg19all
@@ -6,3 +6,65 @@ seqmule download -down hg19all
 ##Step 2: Prepare input
 
 Once external databases are downloaded. SeqMule is ready for analysis! This time 
+
+
+##Step 3: Run pipeline
+seqmule pipeline -a normal_R1.fastq.gz -b normal_R2.fastq.gz -prefix example -N 2 -capture default -threads 4 -e
+
+
+## during the running , there is an error occurred, error message is as following:
+
+##### ERROR ------------------------------------------------------------------------------------------
+##### ERROR stack trace 
+java.lang.ExceptionInInitializerError
+	at org.broadinstitute.sting.gatk.GenomeAnalysisEngine.<init>(GenomeAnalysisEngine.java:160)
+	at org.broadinstitute.sting.gatk.CommandLineExecutable.<init>(CommandLineExecutable.java:53)
+	at org.broadinstitute.sting.gatk.CommandLineGATK.<init>(CommandLineGATK.java:54)
+	at org.broadinstitute.sting.gatk.CommandLineGATK.main(CommandLineGATK.java:90)
+Caused by: java.lang.NullPointerException
+	at org.reflections.Reflections.scan(Reflections.java:220)
+	at org.reflections.Reflections.scan(Reflections.java:166)
+	at org.reflections.Reflections.<init>(Reflections.java:94)
+	at org.broadinstitute.sting.utils.classloader.PluginManager.<clinit>(PluginManager.java:77)
+	... 4 more
+##### ERROR ------------------------------------------------------------------------------------------
+##### ERROR A GATK RUNTIME ERROR has occurred (version 2.3-9-gdcdccbb):
+##### ERROR
+##### ERROR Please visit the wiki to see if this is a known problem
+##### ERROR If not, please post the error, with stack trace, to the GATK forum
+##### ERROR Visit our website and forum for extensive documentation and answers to 
+##### ERROR commonly asked questions http://www.broadinstitute.org/gatk
+##### ERROR
+##### ERROR MESSAGE: Code exception (see stack trace for error itself)
+##### ERROR ------------------------------------------------------------------------------------------
+
+
+----------ERROR----------
+[ => SeqMule Execution Status: step 7 FAILED at Fri Jun  1 11:44:45 CST 2018, gatklite realn]
+ERROR: command failed
+/home/liang/SeqMule/bin/secondary/../../bin/secondary/worker /home/liang/Downloads/seqmule.06012018.3946.logs 7 "/home/liang/SeqMule/bin/secondary/../../bin/secondary/runGATKLITEREALN -advanced example.config -n 6 -ref /home/liang/SeqMule/bin/secondary/../../database/human_g1k_v37.fasta -java java -jmem 1750m -gatk /home/liang/SeqMule/exe/gatklite/GenomeAnalysisTKLite.jar -threads 4 -gatk-nt 2 -tmpdir /tmp  -bed /home/liang/SeqMule/misc/hg19_exonPlus5bp_UCSCrefGene.bed -goldindel /home/liang/SeqMule/bin/secondary/../../database/Mills_and_1000G_gold_standard.indels.b37.vcf  -dbsnp /home/liang/SeqMule/bin/secondary/../../database/dbsnp_hg19_138.vcf  -samtools /home/liang/SeqMule/exe/samtools/samtools  -pl ILLUMINA  -bam example_result/example.0_bwamem.sort.rmdup.readfiltered.bam -out example_result/example.0_bwamem.sort.rmdup.readfiltered.realn.bam "
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+After fixing the problem, please execute 'cd /home/liang/Downloads' and 'seqmule run example.script' to resume analysis.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+## There is a similar error which has been mentioned in the forum, the link is following:
+## https://gatkforums.broadinstitute.org/gatk/discussion/5089/java-lang-exceptionininitializererror
+## in this post, this error is attributed to JAVA 1.8, I really installed it. But GATK4 need JAVA 1.8 as stated in its official website. so I have to change back to JAVA 1.7 to test this.
+
+## download JAVA 1.7 from the website :
+## http://www.oracle.com/technetwork/java/javase/downloads/index.html
+## find at the end of this website, the " JAVA Archive" part, click the DOWNLOAD button
+## in the new website, find the JAVA SE 7
+## in the new website, download the jdk-7u80-linux-x64.tar.gz
+## download the jdk need oracle account.
+
+
+
+
+
+##Step 4: Check results
+
+
+
+
+
